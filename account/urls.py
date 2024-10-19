@@ -1,5 +1,5 @@
 from django.urls import path
-from account.views import CreateAccountApi,GetAllAccounts,GetOneAccount,CloseAccountApi,DepositApi,WithdrawApi,TransactionStatement
+from account.views import CreateAccountApi,GetAllAccounts,GetOneAccount,CloseAccountApi,DepositApi,WithdrawApi,TransactionStatement,AccountToAccount
 
 urlpatterns = [
     path('create/',CreateAccountApi.as_view()),
@@ -9,4 +9,7 @@ urlpatterns = [
     path('deposit/',DepositApi.as_view()),
     path('withdraw/',WithdrawApi.as_view()),
     path('transaction/',TransactionStatement.as_view()),
+    path('transfer/',AccountToAccount.as_view())
+    
+    
 ]

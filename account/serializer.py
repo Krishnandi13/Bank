@@ -17,7 +17,8 @@ class AccountSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=Account
-        fields=['customer','product','account_number','owner_name','status','balance']    
+        # fields=['customer','product','account_number','owner_name','status','balance']    
+        fields="__all__"
         
         
 class CreateTransactionSerializer(serializers.Serializer):
@@ -26,6 +27,9 @@ class CreateTransactionSerializer(serializers.Serializer):
     
 class TransactionSerializer(serializers.ModelSerializer):
     
+    account=AccountSerializer(read_only=True)
+    origin_account_number = serializers.CharField(required=False)
+    destination_account_number = serializers.CharField(required=False)
     class Meta:
         model=Transaction
-        fields=['transaction_id','account','transaction_type','transaction_date','amount']          
+        fields=['transaction_id','account','transaction_type','transaction_date','amount','origin_account_number','destination_account_number']          

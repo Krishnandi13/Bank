@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+
+from django.template import Origin
 from customer.models import Customer
 from product_catalog.models import Product
 
@@ -12,7 +14,7 @@ class Account(models.Model):
     ]
     
     product=models.ForeignKey(to=Product,on_delete=models.PROTECT)
-    customer=models.ForeignKey(to=Customer,on_delete=models.CASCADE)
+    customer=models.ForeignKey(to=Customer,on_delete=models.DO_NOTHING)
     account_number=models.CharField(max_length=20,unique=True)
     owner_name=models.CharField(max_length=100)
     status=models.CharField(max_length=10,choices=STATUS_CHOICE,default='OPEN')
@@ -36,6 +38,8 @@ class Transaction(models.Model):
     transaction_type=models.CharField(max_length=10,choices=TRANSACTION_TYPE)
     transaction_date=models.DateTimeField(auto_now_add=True)
     amount=models.DecimalField(max_digits=10, decimal_places=2)
-    
+    origin_account_number=models.CharField(max_length=20,null=True)
+    destination_account_number=models.CharField(max_length=10,null=True)
+        
     
     
